@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Harshita 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush: #FBE4EC;
+    --dusk-rose: #F3C6D9;
+    --deep-dusk: #E3A9C4;
+    --cream-paper: #FFFAF6;
+    --plum-wine: #5C2340;
+    --ink-plum: #3A1626;
+    --champagne-gold: #C9A15F;
+    --gold-light: #ECD6A6;
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --font-script: 'Mrs Saint Delafield', cursive;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ -webkit-tap-highlight-color: transparent; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    overflow-x:hidden;
+    font-family: var(--font-body);
+    color: var(--ink-plum);
+    background: linear-gradient(155deg, var(--blush) 0%, var(--dusk-rose) 55%, var(--deep-dusk) 100%);
+    background-size: 220% 220%;
+    animation: bgShift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgShift{
+    0%{ background-position: 0% 20%; }
+    100%{ background-position: 100% 80%; }
+  }
+
+  ::selection{ background: var(--plum-wine); color: var(--cream-paper); }
+
+  :focus-visible{
+    outline: 2px solid var(--champagne-gold);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .ambient-hearts{
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ambient-heart{
+    position: absolute;
+    bottom: -12%;
+    color: var(--plum-wine);
+    opacity: 0;
+    animation-name: floatUp;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes floatUp{
+    0%   { transform: translateY(0) rotate(-6deg); opacity: 0; }
+    8%   { opacity: .28; }
+    92%  { opacity: .22; }
+    100% { transform: translateY(-115vh) rotate(10deg); opacity: 0; }
+  }
+
+  .stage{
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 18px;
+  }
+
+  /* ---------- Envelope ---------- */
+
+  .envelope-wrap{
+    perspective: 1200px;
+  }
+
+  .envelope{
+    position: relative;
+    width: min(340px, 82vw);
+    aspect-ratio: 3 / 2;
+    cursor: pointer;
+    transition: opacity .5s ease, transform .5s ease;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    display: block;
+  }
+
+  .envelope-wrap.is-hidden{
+    opacity: 0;
+    transform: translateY(-10px) scale(.97);
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .envelope__body{
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(160deg, var(--plum-wine), var(--ink-plum));
+    box-shadow: 0 24px 50px -18px rgba(58,22,38,.55);
+    overflow: hidden;
+  }
+
+  .envelope__body::after{
+    /* bottom pocket seam */
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: 8%;
+    height: 1px;
+    background: rgba(255,255,255,.14);
+  }
+
+  .envelope__flap{
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 54%;
+    background: linear-gradient(160deg, var(--ink-plum), var(--plum-wine));
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform .8s cubic-bezier(.45,.15,.2,1);
+    z-index: 3;
+  }
+
+  .envelope.is-opening .envelope__flap{
+    transform: rotateX(165deg);
+  }
+
+  .envelope__seal{
+    position: absolute;
+    top: calc(54% - 24px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--champagne-gold) 62%, #8f6c37 100%);
+    box-shadow: 0 6px 14px rgba(0,0,0,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-plum);
+    z-index: 4;
+    transition: transform .45s ease, opacity .45s ease;
+  }
+
+  .envelope.is-opening .envelope__seal{
+    transform: translate(-50%, -50%) scale(.15);
+    opacity: 0;
+  }
+
+  .envelope__seal svg{ width: 20px; height: 20px; }
+
+  .envelope__label{
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 24px;
+    text-align: center;
+  }
+
+  .envelope__label .to{
+    font-family: var(--font-script);
+    font-size: clamp(1.7rem, 6.5vw, 2.3rem);
+    color: var(--cream-paper);
+    line-height: 1;
+  }
+
+  .envelope__label .tap{
+    margin-top: 8px;
+    font-family: var(--font-body);
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,250,246,.68);
+  }
+
+  /* ---------- Letter ---------- */
+
+  .letter{
+    display: none;
+    width: 100%;
+    max-width: 620px;
+    background: var(--cream-paper);
+    border-radius: 20px;
+    padding: clamp(30px, 6vw, 58px);
+    box-shadow: 0 34px 70px -24px rgba(58,22,38,.4);
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .letter.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .letter__eyebrow{
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--plum-wine);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .letter__eyebrow svg{ width: 12px; height: 12px; color: var(--champagne-gold); }
+
+  .letter h1{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    line-height: 1.12;
+    margin: 14px 0 22px;
+    color: var(--ink-plum);
+  }
+
+  .letter h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--plum-wine);
+  }
+
+  .letter p{
+    font-size: clamp(1.08rem, 2.4vw, 1.24rem);
+    line-height: 1.6;
+    margin: 0 0 18px;
+  }
+
+  .letter p.lede{
+    font-style: italic;
+    color: var(--plum-wine);
+  }
+
+  .divider{
+    border: none;
+    height: 1px;
+    margin: 30px 0 22px;
+    background: linear-gradient(90deg, transparent, var(--champagne-gold), transparent);
+  }
+
+  .reasons-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: .01em;
+    margin: 0 0 16px;
+    color: var(--plum-wine);
+  }
+
+  .reasons{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 460px){
+    .reasons{ grid-template-columns: 1fr; }
+  }
+
+  .card{
+    perspective: 1000px;
+    height: 128px;
+  }
+
+  .card__inner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: transform .6s cubic-bezier(.45,.15,.2,1);
+    transform-style: preserve-3d;
+    border-radius: 14px;
+  }
+
+  .card.is-flipped .card__inner{
+    transform: rotateY(180deg);
+  }
+
+  .card__face{
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .card__front{
+    background: linear-gradient(160deg, var(--dusk-rose), var(--blush));
+    color: var(--plum-wine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.08rem;
+  }
+
+  .card__back{
+    background: var(--plum-wine);
+    color: var(--cream-paper);
+    transform: rotateY(180deg);
+    font-size: .98rem;
+    line-height: 1.35;
+  }
+
+  .closing{
+    margin-top: 8px;
+  }
+
+  .signature{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .signature .name{
+    font-family: var(--font-script);
+    font-size: 2.4rem;
+    color: var(--plum-wine);
+    line-height: 1;
+  }
+
+  .signature svg{
+    width: 22px; height: 22px;
+    color: var(--plum-wine);
+  }
+
+  /* ---------- Burst hearts (on envelope open) ---------- */
+
+  .burst-heart{
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    color: var(--champagne-gold);
+    animation: burst .9s ease-out forwards;
+  }
+
+  @keyframes burst{
+    0%   { transform: translate(-50%, -50%) scale(.4); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    body{ animation: none; }
+    .ambient-heart{ animation: none !important; opacity: .2; }
+    .envelope__flap, .envelope__seal, .letter, .card__inner{ transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="heart-solid" viewBox="0 0 24 24">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+  </symbol>
+  <symbol id="heart-outline" viewBox="0 0 24 24">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  </symbol>
+</svg>
+
+<div class="ambient-hearts" id="ambientHearts" aria-hidden="true"></div>
+
+<main class="stage">
+
+  <div class="envelope-wrap" id="envelopeWrap">
+    <button class="envelope" id="envelope" type="button" aria-label="Open your letter from Manan">
+      <span class="envelope__body"></span>
+      <span class="envelope__flap"></span>
+      <span class="envelope__seal">
+        <svg viewBox="0 0 24 24"><use href="#heart-solid"></use></svg>
+      </span>
+      <span class="envelope__label">
+        <span class="to">For Harshita</span>
+        <span class="tap">tap to open</span>
+      </span>
+    </button>
+  </div>
+
+  <article class="letter" id="letter">
+    <p class="letter__eyebrow">
+      <svg viewBox="0 0 24 24"><use href="#heart-solid"></use></svg>
+      National Girlfriend&rsquo;s Day &middot; August 1
+    </p>
+
+    <h1>To Harshita, <em>with love</em></h1>
+
+    <p class="lede">Dear Harshita,</p>
+
+    <p>Somewhere between the ordinary days and the ones we&rsquo;ll remember forever, you became my favourite part of all of them. Today just happens to have a name for what I already knew &mdash; that I&rsquo;m lucky to call you mine.</p>
+
+    <p>So on National Girlfriend&rsquo;s Day, I wanted to stop everything for a minute and simply tell you: thank you for your laugh, your patience, your fierce kindness, and for choosing me, every day, in all the small unglamorous ways that matter most.</p>
+
+    <p>A few reasons, among many:</p>
+
+    <div class="reasons">
+      <div class="card" tabindex="0" role="button" aria-label="Flip card: Your laugh">
+        <div class="card__inner">
+          <div class="card__face card__front">Your laugh</div>
+          <div class="card__face card__back">It&rsquo;s the best sound in any room &mdash; I&rsquo;d rearrange my whole day just to hear it.</div>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="button" aria-label="Flip card: Your kindness">
+        <div class="card__inner">
+          <div class="card__face card__front">Your kindness</div>
+          <div class="card__face card__back">You make people feel safe, seen, and a little braver just by being near you.</div>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="button" aria-label="Flip card: Your strength">
+        <div class="card__inner">
+          <div class="card__face card__front">Your strength</div>
+          <div class="card__face card__back">You carry more than anyone realises, and you still show up soft. That&rsquo;s rare.</div>
+        </div>
+      </div>
+      <div class="card" tabindex="0" role="button" aria-label="Flip card: Just you">
+        <div class="card__inner">
+          <div class="card__face card__front">Just&hellip; you</div>
+          <div class="card__face card__back">Even the most ordinary version of you is still my favourite person in the room.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <p class="closing">Happy Girlfriend&rsquo;s Day, Harshita. Here&rsquo;s to more ordinary days that don&rsquo;t feel ordinary at all &mdash; because you&rsquo;re in them.</p>
+
+    <p style="margin-bottom:0;">Yours, always,</p>
+    <div class="signature">
+      <span class="name">Manan</span>
+      <svg viewBox="0 0 24 24"><use href="#heart-outline"></use></svg>
+    </div>
+  </article>
+
+</main>
+
+<script>
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Ambient drifting hearts
+  (function(){
+    var wrap = document.getElementById('ambientHearts');
+    var count = 14;
+    for (var i = 0; i < count; i++){
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.classList.add('ambient-heart');
+      var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttribute('href', '#heart-outline');
+      svg.appendChild(use);
+
+      var size = 12 + Math.random() * 22;
+      svg.style.width = size + 'px';
+      svg.style.height = size + 'px';
+      svg.style.left = (Math.random() * 100) + '%';
+
+      if (reduced){
+        svg.style.bottom = (Math.random() * 90) + '%';
+        svg.style.opacity = (0.15 + Math.random() * 0.15).toFixed(2);
+      } else {
+        var duration = 16 + Math.random() * 14;
+        var delay = -Math.random() * duration;
+        svg.style.animationDuration = duration + 's';
+        svg.style.animationDelay = delay + 's';
+      }
+      wrap.appendChild(svg);
+    }
+  })();
+
+  function burstHearts(originEl){
+    if (reduced) return;
+    var rect = originEl.getBoundingClientRect();
+    var originX = rect.left + rect.width / 2;
+    var originY = rect.top + rect.height * 0.54;
+
+    for (var i = 0; i < 12; i++){
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.classList.add('burst-heart');
+      var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttribute('href', '#heart-solid');
+      svg.appendChild(use);
+
+      var size = 10 + Math.random() * 14;
+      svg.style.width = size + 'px';
+      svg.style.height = size + 'px';
+      svg.style.left = originX + 'px';
+      svg.style.top = originY + 'px';
+
+      var angle = Math.random() * Math.PI * 2;
+      var dist = 60 + Math.random() * 100;
+      var dx = Math.cos(angle) * dist;
+      var dy = Math.sin(angle) * dist - 50;
+      svg.style.setProperty('--dx', dx + 'px');
+      svg.style.setProperty('--dy', dy + 'px');
+
+      document.body.appendChild(svg);
+      svg.addEventListener('animationend', function(){ this.remove(); });
+    }
+  }
+
+  var envelope = document.getElementById('envelope');
+  var envelopeWrap = document.getElementById('envelopeWrap');
+  var letter = document.getElementById('letter');
+  var opened = false;
+
+  function openEnvelope(){
+    if (opened) return;
+    opened = true;
+    envelope.classList.add('is-opening');
+    burstHearts(envelope);
+
+    var wait = reduced ? 10 : 720;
+    setTimeout(function(){
+      envelopeWrap.classList.add('is-hidden');
+      letter.style.display = 'block';
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          letter.classList.add('show');
+        });
+      });
+    }, wait);
+  }
+
+  envelope.addEventListener('click', openEnvelope);
+
+  // Flip cards
+  var cards = document.querySelectorAll('.card');
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){
+      card.classList.toggle('is-flipped');
+    });
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        card.classList.toggle('is-flipped');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
